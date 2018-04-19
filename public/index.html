@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat</h1>
+
+    <ul id="messages"></ul>
+
+    <button id="sendMessage">
+        Send message
+    </button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io()
+
+        socket.on('welcome message', data => {
+            console.log('Welcome to the chat')
+        })
+
+        socket.on('new message', message => {
+            console.log('New message', message)
+            let messages = document.querySelector('#messages')
+            let el = document.createElement('li')
+            el.innerHTML = message.text
+
+            messages.appendChild(el)
+        })
+
+        let butt$on = document.querySelector('#sendMessage')
+        button.addEventListener('click', e => {
+            e.preventDefault()
+
+            socket.emit('send message', { text: prompt('What is your message?') })
+        })
+    </script>
+</body>
+</html>
